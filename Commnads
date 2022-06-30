@@ -1,0 +1,45 @@
+#Utilize Google Cloud Command Line Interface Using GSUTIL
+#For the below commands, assume I have 2 GCS buckets created named: example-bucket-1 and example-bucket-2
+#In the GCS bucket example-bucket-1 I have two files named test.txt and work.txt
+#In the GCS bucket example-bucket-2 I have no files.
+
+#Step 2:
+##Create GCS Bucket
+gsutil mb -c standard gs://example-bucket-3
+
+##Delete GCS Bucket
+gsutil rb gs://example-bucket-2
+
+#Step 3:
+cat "Example File" >> example.txt
+
+##Move created file to GCS Bucket.
+gsutil mv example.txt gs://example-bucket-3
+
+##Download a text file from a bucket.
+gsutil mv gs://example-bucket-1/work.txt work.txt
+
+##Remove the downloaded file from the bucket
+gsutil rm gs://example-bucket-1/work.txt
+
+#Step 4:
+##Move the newly uploaded object
+gsutil mv gs://example-bucket-3/example.txt gs://example-bucket-1/example.txt
+
+##Rename the newly moved object
+gsutil mv gs://example-bucket-1/example.txt gs://example-bucket-1/moved.txt
+
+#Step 5:
+##Get the ACL of an object
+gsutil acl get gs://example-bucket-1/moved.txt
+
+##Set the ACL to public
+gsutil acl set public gs://example-bucket-1/moved.txt
+
+#Step 6:
+##List all buckets and contents of buckets
+gsutil ls -l gs://*/*
+
+##Print the details listing of one bucket and one object
+gsutil ls -L -b gs://example-bucket-1
+gsutil ls -L gs://example-bucket-1/moved.txt
